@@ -1,11 +1,24 @@
 from aoc.day01 import part1, part2
 
+
 #
 # --- Part One ---
 #
 
 def test_part1():
-    assert part1.result(None) == None
+    sample_input = """199
+200
+208
+210
+200
+207
+240
+269
+260
+263
+""".splitlines()
+    assert part1.result(sample_input) == 7
+
 
 #
 # --- Part Two ---
