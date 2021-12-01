@@ -1,12 +1,6 @@
 from aoc.day01 import part1, part2
 
-
-#
-# --- Part One ---
-#
-
-def test_part1():
-    sample_input = """199
+sample_input = """199
 200
 208
 210
@@ -17,6 +11,12 @@ def test_part1():
 260
 263
 """.splitlines()
+
+#
+# --- Part One ---
+#
+
+def test_part1():
     assert part1.result(sample_input) == 7
 
 
@@ -25,4 +25,4 @@ def test_part1():
 #
 
 def test_part2():
-    assert part2.result(None) == None
+    assert part2.result(sample_input) == 5
