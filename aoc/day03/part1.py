@@ -1,7 +1,9 @@
 # Advent of Code - Day 3 - Part One
+from aoc.day03.shared import bin_to_decimal, parse_report
+
 
 def result(diagnostic_report: list[str]):
-    diagnostic_report = [[int(c) for c in d] for d in diagnostic_report]
+    diagnostic_report = parse_report(diagnostic_report)
     gamma_rate = []
     epsilon_rate = []
     for i in range(len(diagnostic_report[0])):
@@ -18,14 +20,3 @@ def result(diagnostic_report: list[str]):
     return bin_to_decimal(gamma_rate) * bin_to_decimal(epsilon_rate)
 
 
-def bin_to_decimal(binary: list[int]):
-    decimal = 0
-    i = 0
-    for d in reversed(binary):
-        if i == 0:
-            decimal += d
-        else:
-            decimal += d * 2**i
-        i += 1
-
-    return decimal
