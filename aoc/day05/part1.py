@@ -1,5 +1,5 @@
 # Advent of Code - Day 5 - Part One
-from aoc.day05.line import Line, DiagonalLineNotSupported
+from aoc.day05.line import Line
 from aoc.day05.field import Field
 
 
@@ -8,6 +8,11 @@ def result(raw_input: list[str]):
     lines = []
     for raw_line in raw_input:
         l = Line.parse(raw_line)
+
+        # skip diagonals
+        if l.p1.x != l.p2.x and l.p1.y != l.p2.y:
+            continue
+
         lines.append(l)
         field_size = (
             max([field_size[0], l.p1.x, l.p2.x]),
@@ -16,10 +21,7 @@ def result(raw_input: list[str]):
     field = Field(field_size[0], field_size[1])
 
     for line in lines:
-        try:
-            field.draw_line(line)
-        except DiagonalLineNotSupported:
-            continue
+        field.draw_line(line)
 
     overlaps = 0
     for x in range(field.size_x()):
