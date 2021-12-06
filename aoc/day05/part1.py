@@ -1,20 +1,30 @@
 # Advent of Code - Day 5 - Part One
 from aoc.day05.line import Line, DiagonalLineNotSupported
+from aoc.day05.field import Field
 
 
 def result(raw_input: list[str]):
-    lines = [
-        Line.parse(raw_line) for raw_line in raw_input
-    ]
+    field_size = (0, 0)
+    lines = []
+    for raw_line in raw_input:
+        l = Line.parse(raw_line)
+        lines.append(l)
+        field_size = (
+            max([field_size[0], l.p1.x, l.p2.x]),
+            max([field_size[1], l.p1.y, l.p2.y]),
+        )
+    field = Field(field_size[0], field_size[1])
 
-    points = set()
-    for l1 in range(len(lines)):
-        for l2 in range(l1 + 1, len(lines)):
-            try:
-                intersection_point = lines[l1].intersection_points(lines[l2])
-            except DiagonalLineNotSupported:
-                continue
-            if intersection_point is not None:
-                points.update(intersection_point)
+    for line in lines:
+        try:
+            field.draw_line(line)
+        except DiagonalLineNotSupported:
+            continue
 
-    return len(points)
+    overlaps = 0
+    for x in range(field.size_x()):
+        for y in range(field.size_y()):
+            if field.number_of_lines_at(x, y) > 1:
+                overlaps += 1
+
+    return overlaps
